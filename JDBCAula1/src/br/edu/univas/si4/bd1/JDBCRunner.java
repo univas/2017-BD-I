@@ -1,15 +1,14 @@
 package br.edu.univas.si4.bd1;
 
-import java.sql.SQLException;
-
 public class JDBCRunner {
 
 	public static void main(String[] args) {
 		
 		AreaPesquisaDAO areaDAO = new AreaPesquisaDAO();
+		AreaPesquisaTO to = new AreaPesquisaTO(103, 1, "Modelagem", "Engenharia de Software");
 		try {
-			areaDAO.insertNewAreaPesquisa(102, 3, "Linguagem", "Java");
-		} catch (SQLException e) {
+			areaDAO.insertNewAreaPesquisa(to);
+		} catch (AreaPesquisaException e) {
 			System.out.println("Erro salvando área de pesquisa.");
 			e.printStackTrace();
 		}
