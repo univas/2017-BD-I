@@ -2,6 +2,7 @@ package br.edu.univas.si4.bd1;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class AreaPesquisaDAO {
@@ -50,6 +51,35 @@ public class AreaPesquisaDAO {
 		} finally {
 			DBUtil.closeConnection(conn);
 		}
-
 	}
+	
+	public void consultaAreaPesquisa() throws AreaPesquisaException {
+		String sql = "SELECT CODIGO, NOME FROM AREA_PESQUISA";
+		Connection conn = null;
+		try {
+			conn = DBUtil.openConnection();
+			PreparedStatement prep = conn.prepareStatement(sql);
+			ResultSet rs = prep.executeQuery();
+			while(rs.next()) {
+				
+				int codigo = rs.getInt(1);
+				String nome = rs.getString(2);
+				
+				System.out.println(codigo + " - " + nome);
+			}
+		} catch (SQLException e) {
+			throw new AreaPesquisaException("Erro consultando a área de pesquisa");
+		} finally {
+			DBUtil.closeConnection(conn);
+		}
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
