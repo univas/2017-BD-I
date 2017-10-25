@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class AreaPesquisaDAO {
 
@@ -53,8 +54,11 @@ public class AreaPesquisaDAO {
 		}
 	}
 	
-	public void consultaAreaPesquisa() throws AreaPesquisaException {
-		String sql = "SELECT CODIGO, NOME FROM AREA_PESQUISA";
+	public ArrayList<AreaPesquisaTO> consultaAreaPesquisa() throws AreaPesquisaException {
+		String sql = "SELECT CODIGO, NOME, INDICE_RELEVANCIA, DESCRICAO "
+				+ " FROM AREA_PESQUISA";
+		
+		ArrayList<AreaPesquisaTO> lista = new ArrayList<AreaPesquisaTO>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.openConnection();
@@ -64,22 +68,18 @@ public class AreaPesquisaDAO {
 				
 				int codigo = rs.getInt(1);
 				String nome = rs.getString(2);
+				int indice = rs.getInt(3);
+				String descricao = rs.getString(4);
 				
-				System.out.println(codigo + " - " + nome);
+				AreaPesquisaTO to = new AreaPesquisaTO(codigo, indice, nome, descricao);
+				lista.add(to);
+//				System.out.println(codigo + " - " + nome);
 			}
 		} catch (SQLException e) {
 			throw new AreaPesquisaException("Erro consultando a área de pesquisa");
 		} finally {
 			DBUtil.closeConnection(conn);
 		}
+		return lista;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }

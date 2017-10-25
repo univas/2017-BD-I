@@ -46,5 +46,12 @@ public class AreaPesquisaTO {
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
+
+	@Override
+	public String toString() {
+		return "AreaPesquisaTO [codigo=" + codigo + ", indice=" + indice + ", nome=" + nome + ", descricao=" + descricao
+				+ "]";
+	}
+	
 	
 }
