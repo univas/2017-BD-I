@@ -1,0 +1,21 @@
+API JDBC
+
+Ver pacote java.sql.
+
+Interfaces mais utilizadas:
+
+Connection
+Driver
+PreparedStatement
+ResultSet
+Statement
+
+Classes mais utilizadas:
+java.sql.Date  //cuidado para não confundir com java.util.Date
+DriverManager
+Timestamp      //para trabalhar com data/hora
+Types
+
+Exceptions mais utilizadas:
+SQLException
+SQLSyntaxErrorException
