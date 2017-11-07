@@ -54,15 +54,21 @@ public class AreaPesquisaDAO {
 		}
 	}
 	
-	public ArrayList<AreaPesquisaTO> consultaAreaPesquisa() throws AreaPesquisaException {
+	public ArrayList<AreaPesquisaTO> consultaAreaPesquisa(int indiceRelevancia) throws AreaPesquisaException {
+		
+		//Exercício: fazer uma consulta com filtro de índice de relevância, usando ?
+		
 		String sql = "SELECT CODIGO, NOME, INDICE_RELEVANCIA, DESCRICAO "
-				+ " FROM AREA_PESQUISA";
+				+ " FROM AREA_PESQUISA"
+				+ " WHERE INDICE_RELEVANCIA = ?";
 		
 		ArrayList<AreaPesquisaTO> lista = new ArrayList<AreaPesquisaTO>();
 		Connection conn = null;
 		try {
 			conn = DBUtil.openConnection();
 			PreparedStatement prep = conn.prepareStatement(sql);
+			prep.setInt(1, indiceRelevancia);
+			
 			ResultSet rs = prep.executeQuery();
 			while(rs.next()) {
 				
@@ -81,5 +87,12 @@ public class AreaPesquisaDAO {
 			DBUtil.closeConnection(conn);
 		}
 		return lista;
+	}
+	
+	//Exercício: criar um método para fazer update dos campos:
+	//NOME, ÍNDICE DE RELEVÂNCIA E DESCRIÇÃO
+	
+	public void updateAreaPesquisa(AreaPesquisaTO newArea) {
+		
 	}
 }

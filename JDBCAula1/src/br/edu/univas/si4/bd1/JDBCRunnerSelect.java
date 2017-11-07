@@ -8,7 +8,7 @@ public class JDBCRunnerSelect {
 		
 		AreaPesquisaDAO areaDAO = new AreaPesquisaDAO();
 		try {
-			ArrayList<AreaPesquisaTO> lista = areaDAO.consultaAreaPesquisa();
+			ArrayList<AreaPesquisaTO> lista = areaDAO.consultaAreaPesquisa(3);
 			for (AreaPesquisaTO to : lista) {
 				System.out.println(to);
 			}
