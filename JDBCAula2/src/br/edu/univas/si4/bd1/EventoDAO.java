@@ -23,7 +23,7 @@ public class EventoDAO {
 			conn = DBUtil.openConnection();
 			conn.setAutoCommit(false);// o blog exige isso
 			PreparedStatement prepStat = conn.prepareStatement(sentenca);
-			prepStat.setInt(1, 1);
+			prepStat.setInt(1, 2);
 
 			prepStat.setTimestamp(2, new Timestamp(umaHoraAtras.getTime()));
 			prepStat.setTimestamp(3, new Timestamp(System.currentTimeMillis()));// agora
@@ -43,14 +43,22 @@ public class EventoDAO {
 		}
 	}
 
-	public void consultaEvento() throws DBException {
+	public void consultaEvento(Date inicio, Date fim) throws DBException {
 
-		String sql = "SELECT CODIGO, ENTRADA, SAIDA, DOCUMENTO " + " FROM EVENTO";
+		//System.out.println(inicio + " - " + fim);
+		
+		String sql = "SELECT CODIGO, ENTRADA, SAIDA, DOCUMENTO " 
+				   + " FROM EVENTO "
+				   + " WHERE entrada > ? AND entrada < ? ";
 
 		Connection conn = null;
 		try {
 			conn = DBUtil.openConnection();
 			PreparedStatement prep = conn.prepareStatement(sql);
+			
+			//setar os parâmetros
+			prep.setTimestamp(1, new Timestamp(inicio.getTime()));
+			prep.setTimestamp(2, new Timestamp(fim.getTime()));
 
 			ResultSet rs = prep.executeQuery();
 			while (rs.next()) {
